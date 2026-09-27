@@ -1,0 +1,2 @@
+experiment_id,date,normalization_version,blocking_strategy,feature_set,model,threshold,candidate_count,macro_f0_5,macro_precision,macro_recall,singleton_accuracy,runtime_seconds,notes
+EXP-001,2026-09-25 12:54:12,"v1.0 (accent removal, legal suffix, street abbr)","MultiPass (first word, pfx3, pfx4, second word, street num)","14 features (name jaccard/ngram, addr jaccard/num match, etc.)",LightGBM,0.8,9000,0.8985,0.9489,0.804,1.0,33.44,Full end-to-end baseline complete

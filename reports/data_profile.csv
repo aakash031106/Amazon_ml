@@ -1,0 +1,7 @@
+file_name,file_path,size_mb,total_rows,columns,num_columns,duplicate_ids,bad_prefix_count,empty_name_count,empty_address_count,empty_country_count,unique_countries
+train_source1.tsv,data/dataset\train\train_source1.tsv,200.34,2206821,"['entity_id', 'business_name', 'business_address', 'country']",4,0,0,0,0,0,"['US', 'India']"
+train_source2.tsv,data/dataset\train\train_source2.tsv,466.63,5034616,"['entity_id', 'business_name', 'business_address', 'country']",4,0,0,0,168967,0,"['US', 'India']"
+train_source3.tsv,data/dataset\train\train_source3.tsv,480.37,5285603,"['entity_id', 'business_name', 'business_address', 'country']",4,0,0,0,175916,0,"['US', 'India']"
+test_source1.tsv,data/dataset\test\test_source1.tsv,166.91,1732544,"['entity_id', 'business_name', 'business_address', 'country']",4,0,0,0,0,0,"['India', 'US', 'France']"
+test_source2.tsv,data/dataset\test\test_source2.tsv,485.86,4887273,"['entity_id', 'business_name', 'business_address', 'country']",4,0,0,0,129408,0,"['India', 'US', 'France']"
+test_source3.tsv,data/dataset\test\test_source3.tsv,482.56,5082316,"['entity_id', 'business_name', 'business_address', 'country']",4,0,0,0,136098,0,"['India', 'US', 'France']"

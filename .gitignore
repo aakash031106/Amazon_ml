@@ -1,0 +1,20 @@
+# Ignore large data directories and archives
+data/
+6ab10eb3b23ba_student_resource/
+*.zip
+
+# Ignore all output files
+outputs/
+
+# Python and environment artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
+# Scratch large files
+scratch/*.tsv
+scratch/*.csv
+scratch/*.zip

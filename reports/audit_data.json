@@ -1,0 +1,17 @@
+{
+  "profiles": [
+    {
+      "file_name": "train_source1.tsv",
+      "file_path": "data/dataset\\train\\train_source1.tsv",
+      "size_mb": 200.34,
+      "total_rows": 2206821,
+      "columns": [
+        "entity_id",
+        "business_name",
+        "business_address",
+        "country"
+      ],
+      "num_columns": 4,
+      "duplicate_ids": 0,
+      "bad_prefix_count": 0,
+      "empty_name_count": 
