@@ -265,7 +265,9 @@ def process_country(country: str, f_match, min_thresh: float = 0.80, margin: flo
 
     target_dict = {}
     idx_stem = defaultdict(list)
+    idx_stem_geo = defaultdict(list)
     idx_pfx4 = defaultdict(list)
+    idx_pfx4_geo = defaultdict(list)
     idx_num_tok = defaultdict(list)
     idx_num_geo = defaultdict(list)
     idx_pin = defaultdict(list)
@@ -296,11 +298,18 @@ def process_country(country: str, f_match, min_thresh: float = 0.80, margin: flo
         stems = [w for w in core_brand.split() if len(w) >= 2]
         for s in stems:
             idx_stem[s].append(eid)
+            if geo:
+                idx_stem_geo[(s, geo)].append(eid)
         if stems and len(stems[0]) >= 4:
-            idx_pfx4[stems[0][:4]].append(eid)
+            pfx = stems[0][:4]
+            idx_pfx4[pfx].append(eid)
+            if geo:
+                idx_pfx4_geo[(pfx, geo)].append(eid)
         ns = core_brand.replace(" ", "")
         if len(ns) >= 5:
             idx_stem[ns].append(eid)
+            if geo:
+                idx_stem_geo[(ns, geo)].append(eid)
 
         atok = extract_addr_tokens(n_addr)
         for num in nums:
@@ -368,18 +377,19 @@ def process_country(country: str, f_match, min_thresh: float = 0.80, margin: flo
             if len(sc) <= 200:
                 cands.update(sc)
             elif geo:
-                cands.update([tid for tid in sc if target_dict[tid]["geo"] == geo][:50])
+                cands.update(idx_stem_geo.get((s, geo), [])[:50])
             else:
                 cands.update(sc[:50])
             if len(cands) >= 50:
                 break
 
         if len(cands) < 30 and stems and len(stems[0]) >= 4:
-            pc = idx_pfx4.get(stems[0][:4], [])
+            pfx = stems[0][:4]
+            pc = idx_pfx4.get(pfx, [])
             if len(pc) <= 200:
                 cands.update(pc)
             elif geo:
-                cands.update([tid for tid in pc if target_dict[tid]["geo"] == geo][:40])
+                cands.update(idx_pfx4_geo.get((pfx, geo), [])[:40])
             else:
                 cands.update(pc[:40])
 
@@ -431,7 +441,7 @@ def process_country(country: str, f_match, min_thresh: float = 0.80, margin: flo
             print(f"{tag} [{pct:5.1f}%] Processed {i+1:,}/{total_s1:,} | Matches: {matches_predicted:,} | Singletons: {singletons:,} ({singletons/(i+1)*100:.1f}%) | {rate:.0f} rec/s | ETA: {eta/60:.1f}m", flush=True)
 
     print(f"{tag} Completed in {time.time()-t_start:.1f}s. Total matches: {matches_predicted:,} | Singletons: {singletons:,} ({singletons/total_s1*100:.2f}%)", flush=True)
-    del s1_eids, s1_raw_names, s1_raw_addrs, target_dict, idx_stem, idx_pfx4, idx_num_tok, idx_num_geo, idx_pin
+    del s1_eids, s1_raw_names, s1_raw_addrs, target_dict, idx_stem, idx_stem_geo, idx_pfx4, idx_pfx4_geo, idx_num_tok, idx_num_geo, idx_pin
     gc.collect()
 
 def main():
